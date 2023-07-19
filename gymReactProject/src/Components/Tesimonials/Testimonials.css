@@ -1,0 +1,105 @@
+.testimonials {
+  display: flex;
+  gap: 3rem;
+  padding: 0 3rem;
+  margin: 8rem 0;
+}
+.leftTestimonials {
+  display: flex;
+  flex: 1 1;
+  gap: 2rem;
+  flex-direction: column;
+  text-transform: uppercase;
+  color: white;
+}
+.leftTestimonials > :nth-child(1) {
+  color: var(--orange);
+  font-weight: bold;
+}
+.leftTestimonials > :nth-child(2),
+.leftTestimonials > :nth-child(3) {
+  font-weight: bold;
+  font-size: 3rem;
+}
+
+.leftTestimonials > :nth-child(4) {
+  text-transform: none;
+  text-align: justify;
+  letter-spacing: 2px;
+  line-height: 40px;
+}
+
+.rightTestimonials {
+  flex: 1;
+  position: relative;
+  margin-bottom: 8rem;
+  right: -5rem;
+}
+
+.rightTestimonials > img {
+  position: absolute;
+  width: 15rem;
+  height: 17rem;
+  object-fit: cover;
+  top: 2rem;
+  right: 8rem;
+}
+.rightTestimonials > :nth-child(1) {
+  position: absolute;
+  width: 15rem;
+  height: 17rem;
+  border: 2px solid orange;
+  background-color: transparent;
+  top: 0.9rem;
+  right: 9rem;
+}
+.rightTestimonials > :nth-child(2) {
+  position: absolute;
+  width: 14rem;
+  height: 16rem;
+  right: 6.5rem;
+  top: 4rem;
+  background: var(--planCard);
+}
+.arrow {
+  display: flex;
+  gap: 1rem;
+  position: absolute;
+  bottom: -6rem;
+  left: 4rem;
+}
+.arrow > img {
+  width: 1.5rem;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .testimonials {
+    flex-direction: column;
+  }
+  .leftTestimonials > :nth-child(2),
+  .leftTestimonials > :nth-child(3) {
+    font-size: xx-large;
+  }
+  .rightTestimonials {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+  }
+  .rightTestimonials > img {
+    top: o;
+    right: 0;
+    position: relative;
+    align-self: center;
+  }
+  .arrow {
+    display: block;
+    bottom: -5.5rem;
+  }
+  .arrow > img {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}

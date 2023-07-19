@@ -1,0 +1,42 @@
+.footerContainer {
+  position: relative;
+}
+.footerContainer > hr {
+  border: 1px solid var(--lightgray);
+}
+.footer {
+  padding: 0rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+  height: 15rem;
+}
+.socialLinks {
+  display: flex;
+  gap: 4rem;
+}
+.socialLinks a > img {
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+}
+.logoF {
+  display: flex;
+}
+.logoF > img {
+  width: 3rem;
+}
+.logoF p {
+  color: rgb(255, 255, 255);
+  position: relative;
+  top: 1rem;
+  font-weight: 500;
+}
+.copyRight {
+  color: rgb(206, 204, 204);
+  margin-bottom: -1.5rem;
+  font-size: 13px;
+  font-weight: 600;
+}

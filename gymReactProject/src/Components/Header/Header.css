@@ -1,0 +1,144 @@
+header {
+  font-family: "Lato", sans-serif;
+  position: fixed;
+  width: 100%;
+  height: 3rem;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  margin: -1px auto;
+  padding: 0 5rem;
+  background-color: rgb(119, 119, 119);
+}
+
+.headerScrollEfact {
+  background-color: rgb(53, 48, 48);
+  box-shadow: rgb(141, 140, 140) 0px 25px 35px -25px;
+}
+
+.imgHome {
+  margin-top: 4rem;
+  width: 100%;
+}
+.headerLeft {
+  display: flex;
+}
+
+.headerLeft > p {
+  font-family: "Lato", sans-serif;
+  font-size: 1rem;
+  margin-top: 0.8rem;
+  color: rgb(255, 255, 255);
+  font-weight: 600;
+}
+.headerLeft img {
+  width: 2rem;
+  height: 2.5rem;
+  margin-top: 4px;
+}
+.headerRight {
+  margin-right: 12rem;
+}
+
+.navBar ul {
+  display: flex;
+  gap: 1.85rem;
+  margin: 1rem 0;
+}
+
+.navBar ul li {
+  list-style-type: none;
+  color: rgb(255, 255, 255);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.navBar ul li:hover {
+  cursor: pointer;
+  color: var(--green);
+}
+
+.menuIcon {
+  display: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .navBar {
+    display: none;
+  }
+
+  .mobileNavbar {
+    width: 100%;
+    position: absolute;
+    top: 3rem;
+    left: 0rem;
+    background-color: white;
+    display: block;
+  }
+
+  .mobileNavbar ul {
+    padding: 0 0 20px 10px;
+    display: block;
+  }
+
+  .mobileNavbar ul li {
+    list-style-type: none;
+    color: rgb(99, 99, 99);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px;
+  }
+
+  .menuIcon {
+    display: block;
+    margin-top: 10px;
+    margin-right: 8rem;
+    z-index: -10;
+    color: white;
+  }
+
+  .menu {
+    font-size: 1rem;
+    padding: 5px;
+  }
+
+  .menuIcon :hover {
+    border-radius: 5px;
+    background-color: white;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  header {
+    padding: 0 2rem;
+  }
+
+  .headerLeft p {
+    font-size: 1rem;
+  }
+
+  .headerLeft > img {
+    margin-left: 1rem;
+  }
+  .menuIcon {
+    margin-right: 4rem;
+  }
+}
+
+@media only screen and (max-width: 440px) {
+  header {
+    padding: 0 1rem;
+  }
+  .headerLeft p {
+    font-size: 0.8rem;
+    margin-top: 15px;
+  }
+  .headerLeft img {
+    width: 1.5rem;
+    height: 2rem;
+    margin-top: 0.5rem;
+  }
+  .menuIcon {
+    margin-right: 2rem;
+  }
+}

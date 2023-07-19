@@ -1,0 +1,237 @@
+.home {
+  display: flex;
+  justify-content: space-between;
+}
+
+.homeBlur {
+  width: 30rem;
+  height: 30rem;
+  left: 0;
+}
+.leftHeader {
+  padding: 1.5rem;
+  margin-left: 2rem;
+  margin-bottom: 3rem;
+  flex: 3;
+  /* gap: 2rem; */
+  flex-direction: column;
+}
+.rightHeader {
+  flex: 1;
+  position: relative;
+  background-color: rgb(193, 205, 25);
+}
+.theBestAd {
+  margin-top: 5rem;
+  background-color: gray;
+  border-radius: 4rem;
+  width: fit-content;
+  padding: 20px 13px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: white;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.theBestAd > span {
+  z-index: 2;
+  color: rgb(255, 255, 255);
+}
+.theBestAd > div {
+  position: absolute;
+  background-color: var(--green);
+  width: 5.4rem;
+  height: 80%;
+  left: 8px;
+  border-radius: 3rem;
+  z-index: 1;
+}
+
+.heroText {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  text-transform: uppercase;
+  font-size: 4.5rem;
+  font-weight: bold;
+  color: white;
+  text-overflow: inherit;
+}
+
+.heroText > div:nth-of-type(3) {
+  font-size: 1rem;
+  font-weight: 200;
+  text-transform: none;
+  letter-spacing: 1px;
+  width: 80%;
+}
+
+.figures {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+.figures > div {
+  display: flex;
+  flex-direction: column;
+}
+.figures > div > span:nth-of-type(1) {
+  color: white;
+  font-size: 2rem;
+}
+.figures > div > span:nth-of-type(2) {
+  color: var(--gray);
+  text-transform: uppercase;
+}
+
+.homeButtons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.homeButtons > :nth-child(1) {
+  color: rgb(255, 255, 255);
+  background-color: var(--green);
+  width: 8rem;
+}
+
+.homeButtons > :nth-child(2) {
+  color: white;
+  background-color: transparent;
+  width: 8rem;
+  border: 2px solid var(--green);
+}
+
+.rightHeader > .btn {
+  position: absolute;
+  right: 3rem;
+  top: 2rem;
+  color: black;
+}
+
+.heartRate {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: var(--darkGrey);
+  width: fit-content;
+  padding: 1rem;
+  align-items: flex-start;
+  border-radius: 5px;
+  position: absolute;
+  top: 5rem;
+}
+.heartRate > img {
+  width: 2rem;
+}
+.heartRate > :nth-child(2) {
+  color: var(--gray);
+}
+.heartRate > :nth-child(3) {
+  color: white;
+  font-size: 1.5rem;
+}
+
+.heroImage {
+  position: absolute;
+  top: 14rem;
+  right: -2rem;
+  width: 20rem;
+}
+.heroImageBack {
+  position: absolute;
+  top: 4rem;
+  right: 20rem;
+  z-index: -1;
+  width: 20rem;
+}
+
+.calories {
+  display: flex;
+  gap: 1.1rem;
+  background-color: var(--caloryCard);
+  border-radius: 5px;
+  padding: 0.7rem;
+  width: 11rem;
+  height: 2rem;
+  position: absolute;
+  top: 34rem;
+}
+.calories > img {
+  width: 2rem;
+  height: 2rem;
+}
+
+.calories > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.calories > div > :nth-child(1) {
+  color: var(--gray);
+  margin-top: -5px;
+  font-size: 0.97rem;
+}
+
+.calories > div > :nth-child(2) {
+  color: white;
+  font-size: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+  .home {
+    flex-direction: column;
+  }
+  .homeBlur {
+    width: 14rem;
+  }
+  .theBestAd {
+    font-size: small;
+    color: black;
+    margin: 7rem auto 2rem;
+  }
+  .heroText {
+    font-size: xx-large;
+    align-items: center;
+    justify-content: center;
+  }
+  .heroText > div:nth-of-type(3) {
+    font-size: small;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-align: center;
+  }
+  .homeButtons {
+    justify-content: center;
+  }
+  .figures {
+    display: flex;
+    justify-content: center;
+  }
+  .figures > div > span:nth-of-type(1) {
+    font-size: large;
+  }
+  .figures > div > span:nth-of-type(2) {
+    font-size: small;
+  }
+  .rightHeader {
+    position: relative;
+    background: none;
+  }
+  .heartRate {
+    display: none;
+  }
+  .calories {
+    display: none;
+  }
+  .heroImage {
+    display: none;
+  }
+  .heroImageBack {
+    display: none;
+  }
+}
