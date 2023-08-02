@@ -26,29 +26,23 @@ export default function ChatGpt() {
         setPrompt(e.target.value);
     };
     return (
-        <div className="container container-sm p-1">
-            {" "}
-            <h1 className="title text-center text-darkGreen">ChatGPT API</h1>
-            <form className="form" onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="">Ask questions</label>
-                    <input
-                        className="shadow-sm"
-                        type="text"
-                        placeholder="Enter text"
-                        value={prompt}
-                        onChange={handlePrompt}
-                    />
-                </div>{" "}
-                <button className="btn btn-accept w-100" type="submit">
-                    Go
-                </button>
-            </form>
-            <div className="bg-darkGreen  mt-2 p-1 border-5">
+        <div className="container">
+            <h2 className="title">Hello Buddy</h2>
+            <div className="answerDiv">
                 <p className="text-light">
-                    {response ? response : "Ask me anything..."}
+                    {response ? response : "Generating......"}
                 </p>
             </div>
+            <form className="form" onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    placeholder="Enter Your question ..."
+                    value={prompt}
+                    onChange={handlePrompt}
+                />
+                <button className="btn" type="submit">Go</button>
+            </form>
+
         </div>
     )
 }
