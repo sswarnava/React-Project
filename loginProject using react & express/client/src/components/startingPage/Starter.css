@@ -1,0 +1,133 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #1f2641;
+}
+
+.mainDiv {
+    width: 80%;
+    margin: 0 auto;
+}
+
+header {
+    color: white;
+    font-weight: 800;
+    font-size: 1.5rem;
+    padding-top: 1rem;
+}
+
+.staterDiv {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+}
+
+.starterDivLeft h1 {
+    color: rgb(255, 255, 255);
+    font-size: 4rem;
+    position: relative;
+    top: 12rem;
+}
+
+.starterDivLeft h1 span {
+    color: rgb(255, 129, 61);
+}
+
+.starterDivLeft h3 {
+    position: relative;
+    font-size: 1.5rem;
+    top: 12.5rem;
+    color: rgb(61, 175, 69);
+}
+
+.starterDivLeft button {
+    position: relative;
+    top: 16rem;
+    width: 8rem;
+    height: 3.5rem;
+    border-radius: 20px;
+    border-style: none;
+    font-weight: 600;
+    font-size: 1.2rem;
+    background-color: white;
+}
+
+.starterDivLeft button a {
+    text-decoration: none;
+    color: rgb(12, 49, 108);
+    background-color: white;
+}
+
+.btn1 {
+    margin-right: 1rem;
+}
+
+.starterDivRight img {
+    width: 25rem;
+    position: relative;
+    top: 15rem;
+    right: -3rem;
+}
+
+@media only screen and (max-width: 873px) {
+    header{
+        font-size: 1.3rem;
+    }
+    .staterDiv {
+        display: inline-block;
+    }
+
+    .starterDivLeft h1 {
+        font-size: 3rem;
+        top: 4.5rem;
+    }
+
+    .starterDivLeft h3 {
+        font-size: 1.4rem;
+        top: 6.5rem;
+    }
+
+    .starterDivLeft button {
+        top: 8rem;
+        width: 6rem;
+        height: 3rem;
+        border-radius: 10px;
+    }
+
+    .starterDivRight img {
+        top: 10rem;
+        width: 22rem;
+
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    header{
+        font-size: 1rem;
+    }
+    .starterDivLeft h1 {
+        top: 3.5rem;
+        font-size: 2.5rem;
+    }
+
+    .starterDivLeft h3 {
+        top: 4.5rem;
+        font-size: 1.2rem;
+    }
+
+    .starterDivLeft button {
+        width: 5rem;
+        height: 2.5rem;
+        font-size: .9rem;
+        border-radius: 5px;
+        top: 6rem;
+    }
+
+    .starterDivRight img {
+        right: 0;
+        width: 20rem;
+    }
+}

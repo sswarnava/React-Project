@@ -1,0 +1,172 @@
+header {
+    width: 90%;
+    margin: 1rem auto;
+    display: flex;
+}
+
+.headerRight {
+    position: absolute;
+    right: 5rem;
+}
+
+.headerRight button {
+    border: none;
+}
+
+.headerRight button a {
+    background-color: white;
+    color: #1f2641;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 1rem;
+    padding: .6rem 1.4rem;
+    border-radius: 10px;
+}
+
+.btn1 {
+    border: 2px orange solid;
+}
+
+.login,
+.register {
+    width: 90%;
+    margin: 0 auto;
+    font-size: 2.5rem;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    gap: 8rem;
+    margin-top: 10rem;
+}
+
+.containerRight {
+    width: 25rem;
+    margin-top: 3rem;
+    background: none;
+}
+
+.containerRight h1 {
+    font-size: 4rem;
+    color: white;
+    text-align: center;
+    margin-top: 5rem;
+    background: none;
+
+}
+
+.containerRight p {
+    font-size: 1.3rem;
+    text-align: center;
+    color: rgb(220, 150, 20);
+    margin-top: 2rem;
+    background: none;
+
+}
+
+.containerLeft form {
+    width: 20rem;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    margin: 3rem auto;
+    text-align: center;
+}
+
+.containerLeft form label {
+    font-size: 1.2rem;
+    font-weight: 700;
+    background-color: white;
+}
+
+.containerLeft form input {
+    width: 15rem;
+    height: 2rem;
+    background-color: white;
+    font-size: .9rem;
+    border: 2px #1f2641 solid;
+    border-radius: 5px;
+    padding: 0 1rem;
+}
+
+.containerLeft form .btn {
+    height: 3rem;
+    margin: 2rem 0;
+    background-color: #1f2641;
+    border: none;
+    color: white;
+    font-weight: 700;
+    font-size: 1rem;
+}
+.containerLeft form .btn:hover{
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 973px) {
+    .container {
+        gap: 2rem;
+        margin-left: 10%;
+    }
+
+    .containerRight h1 {
+        font-size: 3rem;
+    }
+
+    .containerRight p {
+        font-size: 1.1rem;
+    }
+}
+
+@media only screen and (max-width: 782px) {
+    .container {
+        gap: 1.5rem;
+        margin-left: 0%;
+    }
+    .containerRight{
+        margin-top: 5rem;
+    }
+    .containerRight h1 {
+        font-size: 2.5rem;
+    }
+    .containerRight p {
+        font-size: .8rem;
+    }
+}
+
+@media only screen and (max-width: 655px){
+    .headerRight {
+        right: 1.5rem;
+    }
+    .headerRight button a {
+    font-weight: 600;
+    font-size: .7rem;
+    padding: .6rem 1rem;
+    }
+    .container{
+        display: block;
+        margin-top: 4rem;
+    }
+    .containerLeft{
+        position: relative;
+        top: 7rem;
+    }
+    .containerLeft form{
+        width: 18rem;
+    }
+    .containerRight{
+        width: 18rem;
+        position: relative;
+        top: -25rem;
+        margin: 0 auto;
+    }
+    .containerRight h1{
+        font-size: 1.5rem;
+    }
+    .containerRight p{
+        margin-top: 1rem;
+    }
+    .cR{
+        top: -31rem;
+    }
+   
+}
