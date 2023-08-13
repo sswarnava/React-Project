@@ -15,7 +15,7 @@ export default function Starter() {
             <span>Welcome</span>
             <br /> To EDUee
           </h1>
-          <h3>"Education is the vaccine of violence."</h3>
+          <h3>“We learn from failure, not from success!”</h3>
           <div>
             <button className='btn1'><a href="/login" >Sign in</a></button>
             <button><a href="/register" >Sign up</a></button>
