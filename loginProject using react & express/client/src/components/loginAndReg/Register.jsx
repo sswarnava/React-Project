@@ -11,24 +11,48 @@ function Register() {
   async function registerUser(event) {
     event.preventDefault();
 
-    const response = await fetch("http://localhost:3002/api/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name,
-        email,
-        password,
-      }),
-    });
-
-    const data = await response.json();
-    console.log(data);
-
-    if (data.status === "ok") {
-      navigate("/login");
+    // Validaiton Code
+    let stringCheck = /^[a-zA-Z]*$/
+    function validation(name) {
+      if (name.length > 20) {
+        alert("Username Must be lass than 20 Characters")
+        return false;
+      }
+      else if (!name.match(stringCheck)) {
+        alert("Username Must Contain only Alphabets")
+        return false
+      }
+      return true;
     }
+    // Validation function call --   
+    const nameStatus = validation(name)
+    // console.log(nameStatus)
+
+    // Save the data in database
+    if (nameStatus) {
+      const response = await fetch("http://localhost:3002/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.status === "ok") {
+        navigate("/login");
+      }
+      else if (data.status === "error") {
+        alert(data.error)
+      }
+    }
+
   }
 
   return (
