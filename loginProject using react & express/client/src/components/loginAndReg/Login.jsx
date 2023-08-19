@@ -26,7 +26,7 @@ function Login() {
       alert("Login successful");
       window.location.href = "/home";
     } else {
-      alert("Please check your username and password");
+      alert(`Please check your ${data.error}`);
     }
   }
 
@@ -52,6 +52,7 @@ function Login() {
               onChange={(e) => setEmail(e.target.value)}
               type="email"
               placeholder="Email"
+              required
             />
             <br />
             <label htmlFor="">Enter your password</label>
@@ -62,6 +63,7 @@ function Login() {
               onChange={(e) => setPassword(e.target.value)}
               type="password"
               placeholder="Password"
+              required
             />
             <br />
             <input className="btn" type="submit" value="Login" />

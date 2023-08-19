@@ -41,27 +41,27 @@ app.post("/api/login", async (req, res) => {
     email: req.body.email,
   });
 
-  if (!user) {
-    return { status: "error", error: "Invalid login" };
-  }
-
-  const isPasswordValid = await bcrypt.compare(
-    req.body.password,
-    user.password
-  );
-
-  if (isPasswordValid) {
-    const token = jwt.sign(
-      {
-        name: user.name,
-        email: user.email,
-      },
-      "thmHtryu$7845#"
+  if (user) {
+    const isPasswordValid = await bcrypt.compare(
+      req.body.password,
+      user.password
     );
 
-    return res.json({ status: "ok", user: token });
+    if (isPasswordValid) {
+      const token = jwt.sign(
+        {
+          name: user.name,
+          email: user.email,
+        },
+        "thmHtryu$7845#"
+      );
+
+      return res.json({ status: "ok", user: token });
+    } else {
+      return res.json({ status: "error", error: "Password" });
+    }
   } else {
-    return res.json({ status: "error", user: false });
+    return res.json({ status: "error", error: "Email" });
   }
 });
 
