@@ -43,17 +43,22 @@ export default function RandomString() {
         const combinedString = generetedString + generetedMinimumString
         // Convert the string to a list of characters
         const combinedList = combinedString.split('');
+        console.log(combinedList);
+
         // Shuffle the list
-        combinedList.sort(() => Math.random() - 0.5);
+        combinedList.sort(() => Math.random());
         // Convert the shuffled list back to a string
         const shuffledResult = combinedList.join('');
 
         setText(shuffledResult)
         setRemaningLength(stringLength - minimumUpper - minimumLower - minimumNumber - minimumSpChar)
-    }, [stringLength, minimumUpper, minimumLower, minimumSpChar, minimumNumber, upperCaseAllowed, lowerCaseAllowed, numberAllowed, specialCharAllowed, specialChar, setText, remainingLength])
+
+    }, [stringLength, minimumUpper, minimumLower, minimumSpChar, minimumNumber, upperCaseAllowed, lowerCaseAllowed, numberAllowed, specialCharAllowed, specialChar, setText])
 
     useEffect(() => stringGenerator(), [stringGenerator, stringLength, minimumUpper, minimumLower, minimumSpChar, minimumNumber, upperCaseAllowed, lowerCaseAllowed, numberAllowed, specialCharAllowed, specialChar, setText, remainingLength])
 
+
+    // Handle Minimun string count  
     const handleUpperCaseChange = (e) => {
         const newValue = parseInt(e.target.value, 10);
         if (newValue <= stringLength) setMinimumUpper(newValue)
@@ -96,48 +101,52 @@ export default function RandomString() {
     }, []);
 
     return (
-        < div >
-            <div style={{ height: '100vh', position: 'absolute', left: '3%', top: '10%' }}>
-                <h1>Random String Generator</h1>
+        <div className='bg-gray-700 text-yellow-400' style={{ height: '40rem' }}>
+            <div className="border-white border-2 mx-5 py-4 rounded-md relative top-5">
+                <h1 className="text-center font-bold text-white text-2xl">Random Password Generator</h1>
                 <div>
                     <input
                         type="text"
                         value={text}
-                        style={{ width: '70rem' }}
+                        className="w-full text-xs text-black border-r-4 px-1"
                     />
                     <br />
                     <input
                         type="range"
-                        min='10' max='256'
+                        min={10} max={256} step={1}
                         onChange={(e) => { setStringLength(e.target.value) }}
                     />
-                    <label htmlFor="length" >length ({stringLength})</label>
+                    <label htmlFor="length" className="ml-3 text-sm text-orange-500">String Length: ({stringLength})</label>
 
                     <br />
                     <input
                         type="checkbox"
                         id="upperCase"
                         defaultChecked={upperCaseAllowed}
-                        onChange={() => { setUpperCaseAllowed((prev) => !prev) }}
+                        onChange={() => { setUpperCaseAllowed((prev) => !prev),setMinimumUpper(() => (!upperCaseAllowed&& (remainingLength > 0)) ? 1 : 0) }}
+                        className="ml-2"
                     />
-                    <label htmlFor="chareater">Upper Case</label>
+                    <label htmlFor="chareater" className="ml-2">Upper Case</label>
 
                     <br />
                     <input
                         type="checkbox"
                         id="lowerCase"
                         defaultChecked={lowerCaseAllowed}
-                        onChange={() => { setLowerCaseAllowed((prev) => !prev) }}
+                        onChange={() => { setLowerCaseAllowed((prev) => !prev), setMinimumLower(() => (!lowerCaseAllowed && (remainingLength > 0)) ? 1 : 0) }}
+                        className="ml-2"
                     />
-                    <label htmlFor="chareater">Lower Case</label>
+                    <label htmlFor="chareater" className="ml-2">Lower Case</label>
 
                     <br />
                     <input
                         type="checkbox"
                         id="number"
                         disabled={(!upperCaseAllowed && !lowerCaseAllowed)}
-                        onChange={() => { setNumberAllowed((prev) => !prev), setMinimumNumber(() => (!numberAllowed && (remainingLength > 0)) ? 1 : 0) }} />
-                    <label htmlFor="number">Number</label>
+                        onChange={() => { setNumberAllowed((prev) => !prev), setMinimumNumber(() => (!numberAllowed && (remainingLength > 0)) ? 1 : 0) }}
+                        className="ml-2"
+                    />
+                    <label htmlFor="number" className="ml-2">Number</label>
 
                     <br />
                     <input
@@ -145,20 +154,22 @@ export default function RandomString() {
                         id="specialCharacter"
                         disabled={(!upperCaseAllowed && !lowerCaseAllowed)}
                         onChange={() => { setSpecialCharAllowed((prev) => !prev), setMinimumSpChar(() => (!specialCharAllowed && (remainingLength > 0)) ? 1 : 0) }}
+                        className="ml-2"
                     />
-                    <label htmlFor="character">Special Character</label>
+                    <label htmlFor="character" className="ml-2">Special Character</label>
                     <input
                         type="text"
                         id="myInput"
                         name="myInput"
                         value={specialChar}
                         onChange={(event) => setSpecialChar(event.target.value)}
-                        style={{ width: '15rem' }}
+                        className="ml-2 w-80 pl-2 border-2 border-blue-300 rounded-md text-black text-sm"
                     />
+                    <label htmlFor="" className="ml-2 text-xs text-green-500">(Editable special characters)</label>
 
                     <br />
-                    <div style={{ marginTop: '.4rem' }}>
-                        <label htmlFor="minimumUpperCase">Select Minimum Upper Case</label>
+                    <div className="text-white mt-3">
+                        <label htmlFor="minimumUpperCase" className="ml-3 text-sm">Select Minimum Upper Case</label>
                         <input
                             type="number"
                             id="mouse-only-number-input"
@@ -168,12 +179,13 @@ export default function RandomString() {
                             value={minimumUpper}
                             disabled={!upperCaseAllowed}
                             style={{ width: 'auto' }}
+                            className="ml-3 text-sm text-black h-6 p-2 rounded-md"
                         />
-                        <label htmlFor="ramaningUpperCase">Remaining length: {remainingLength}</label>
+                        <label htmlFor="ramaningUpperCase" className="ml-3 text-sm">Remaining length: {remainingLength}</label>
                     </div>
 
-                    <div style={{ marginTop: '.4rem' }}>
-                        <label htmlFor="minimumLowerCase">Select Minimum Lower Case</label>
+                    <div className="text-white mt-3">
+                        <label htmlFor="minimumLowerCase" className="ml-3 text-sm">Select Minimum Lower Case</label>
                         <input
                             type="number"
                             id="mouse-only-number-input"
@@ -183,13 +195,14 @@ export default function RandomString() {
                             value={minimumLower}
                             style={{ width: 'auto' }}
                             disabled={!lowerCaseAllowed}
+                            className="ml-3 text-sm text-black h-6 p-2 rounded-md"
                         />
-                        <label htmlFor="ramaningLowerCase">Remaining length: {remainingLength}</label>
+                        <label htmlFor="ramaningLowerCase" className="ml-3 text-sm">Remaining length: {remainingLength}</label>
 
                     </div>
 
-                    <div style={{ marginTop: '.4rem' }}>
-                        <label htmlFor="minimumNumber">Select Minimun Number</label>
+                    <div className="text-white mt-3">
+                        <label htmlFor="minimumNumber" className="ml-3 text-sm">Select Minimun Number</label>
                         <input
                             type="number"
                             id="mouse-only-number-input"
@@ -199,12 +212,13 @@ export default function RandomString() {
                             value={minimumNumber}
                             style={{ width: 'auto' }}
                             disabled={!numberAllowed}
+                            className="ml-3 text-sm text-black h-6 p-2 rounded-md"
                         />
-                        <label htmlFor="ramaningNumbe">Remaining length: {remainingLength}</label>
+                        <label htmlFor="ramaningNumbe" className="ml-3 text-sm">Remaining length: {remainingLength}</label>
                     </div>
 
-                    <div style={{ marginTop: '.4rem' }}>
-                        <label htmlFor="minimumSpChar">Select Minimun Special Char</label>
+                    <div className="text-white mt-3">
+                        <label htmlFor="minimumSpChar" className="ml-3 text-sm">Select Minimun Special Char</label>
                         <input
                             type="number"
                             id="mouse-only-number-input"
@@ -214,8 +228,9 @@ export default function RandomString() {
                             value={minimumSpChar}
                             style={{ width: 'auto' }}
                             disabled={!specialCharAllowed}
+                            className="ml-3 text-sm text-black h-6 p-2 rounded-md"
                         />
-                        <label htmlFor="ramaningLowerCase">Remaining length: {remainingLength}</label>
+                        <label htmlFor="ramaningLowerCase" className="ml-3 text-sm">Remaining length: {remainingLength}</label>
                     </div>
                 </div>
             </div>
