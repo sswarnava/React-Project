@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react"
-import { useCallback } from "react"
+import { useEffect, useState, useCallback, useRef } from "react"
 
 export default function RandomString() {
     const [stringLength, setStringLength] = useState(10)
@@ -8,7 +7,7 @@ export default function RandomString() {
     const [numberAllowed, setNumberAllowed] = useState(false)
     const [specialCharAllowed, setSpecialCharAllowed] = useState(false)
     const [specialChar, setSpecialChar] = useState(`!@#$%^&*()_+-=~!@#$%^&*{}|"[];':|<>?,./`)
-    const [text, setText] = useState("")
+    const [randomText, setText] = useState("")
 
     const [minimumUpper, setMinimumUpper] = useState(1)
     const [minimumLower, setMinimumLower] = useState(1)
@@ -16,6 +15,9 @@ export default function RandomString() {
     const [minimumSpChar, setMinimumSpChar] = useState(0)
 
     const [remainingLength, setRemaningLength] = useState(stringLength)
+
+    // for useRef Hook
+    let copyTextRef = useRef(null)
 
     const stringGenerator = useCallback(() => {
         let generetedString = ''
@@ -100,21 +102,35 @@ export default function RandomString() {
         return () => mouseOnlyNumberInputField.removeEventListener("keypress", handleKeyPress);
     }, []);
 
+    // copy to clip-board
+    const copyClipBoard = useCallback(() => {
+        copyTextRef.current?.select()
+        window.navigator.clipboard.writeText(randomText)
+    }, [randomText])
+
     return (
-        <div className='bg-gray-700 text-yellow-400' style={{ height: '40rem' }}>
-            <div className="border-white border-2 mx-5 py-4 rounded-md relative top-5">
-                <h1 className="text-center font-bold text-white text-2xl">Random Password Generator</h1>
+        <div className='text-yellow-400 flex justify-center'>
+            <div className="border-white w-96 border-2 mx-5 py-4 rounded-md relative top-24 h-96">
+                <h1 className="text-center font-bold text-white text-2xl mb-3">Random Password Generator</h1>
                 <div>
                     <input
                         type="text"
-                        value={text}
-                        className="w-full text-xs text-black border-r-4 px-1"
+                        value={randomText}
+                        ref={copyTextRef}
+                        className="w-80 text-sm h-6 text-white rounded-md px-1 ml-2"
                     />
+                    <button
+                        className="bg-blue-500 text-white ml-2 rounded-md p-1 text-xs font-semibold hover:cursor-pointer hover:bg-blue-700"
+                        onClick={copyClipBoard}
+                    >
+                        COPY
+                    </button>
                     <br />
                     <input
                         type="range"
                         min={10} max={256} step={1}
                         onChange={(e) => { setStringLength(e.target.value) }}
+                        className="ml-2"
                     />
                     <label htmlFor="length" className="ml-3 text-sm text-orange-500">String Length: ({stringLength})</label>
 
@@ -123,7 +139,7 @@ export default function RandomString() {
                         type="checkbox"
                         id="upperCase"
                         defaultChecked={upperCaseAllowed}
-                        onChange={() => { setUpperCaseAllowed((prev) => !prev),setMinimumUpper(() => (!upperCaseAllowed&& (remainingLength > 0)) ? 1 : 0) }}
+                        onChange={() => { setUpperCaseAllowed((prev) => !prev), setMinimumUpper(() => (!upperCaseAllowed && (remainingLength > 0)) ? 1 : 0) }}
                         className="ml-2"
                     />
                     <label htmlFor="chareater" className="ml-2">Upper Case</label>
@@ -157,19 +173,20 @@ export default function RandomString() {
                         className="ml-2"
                     />
                     <label htmlFor="character" className="ml-2">Special Character</label>
+                    <label htmlFor="" className="ml-2 text-xs text-green-500">(Editable special characters)</label>
+                    <br />
                     <input
                         type="text"
                         id="myInput"
                         name="myInput"
                         value={specialChar}
                         onChange={(event) => setSpecialChar(event.target.value)}
-                        className="ml-2 w-80 pl-2 border-2 border-blue-300 rounded-md text-black text-sm"
+                        className="ml-2 mt-1 w-80 pl-2 border-2 border-blue-300 rounded-md text-white text-sm"
                     />
-                    <label htmlFor="" className="ml-2 text-xs text-green-500">(Editable special characters)</label>
 
                     <br />
-                    <div className="text-white mt-3">
-                        <label htmlFor="minimumUpperCase" className="ml-3 text-sm">Select Minimum Upper Case</label>
+                    <div className="text-white mt-2">
+                        <label htmlFor="minimumUpperCase" className="ml-2 text-xs">Select Minimum Upper Case</label>
                         <input
                             type="number"
                             id="mouse-only-number-input"
@@ -179,13 +196,13 @@ export default function RandomString() {
                             value={minimumUpper}
                             disabled={!upperCaseAllowed}
                             style={{ width: 'auto' }}
-                            className="ml-3 text-sm text-black h-6 p-2 rounded-md"
+                            className="text-xs text-white h-6 p-2 rounded-md"
                         />
-                        <label htmlFor="ramaningUpperCase" className="ml-3 text-sm">Remaining length: {remainingLength}</label>
+                        <label htmlFor="ramaningUpperCase" className="ml-2 text-xs text-green-400">Remaining length: {remainingLength}</label>
                     </div>
 
-                    <div className="text-white mt-3">
-                        <label htmlFor="minimumLowerCase" className="ml-3 text-sm">Select Minimum Lower Case</label>
+                    <div className="text-white mt-2">
+                        <label htmlFor="minimumLowerCase" className="ml-2 text-xs">Select Minimum Lower Case</label>
                         <input
                             type="number"
                             id="mouse-only-number-input"
@@ -195,14 +212,14 @@ export default function RandomString() {
                             value={minimumLower}
                             style={{ width: 'auto' }}
                             disabled={!lowerCaseAllowed}
-                            className="ml-3 text-sm text-black h-6 p-2 rounded-md"
+                            className="text-xs text-white h-6 p-2 rounded-md"
                         />
-                        <label htmlFor="ramaningLowerCase" className="ml-3 text-sm">Remaining length: {remainingLength}</label>
+                        <label htmlFor="ramaningLowerCase" className=" text-xs text-green-400">Remaining length: {remainingLength}</label>
 
                     </div>
 
-                    <div className="text-white mt-3">
-                        <label htmlFor="minimumNumber" className="ml-3 text-sm">Select Minimun Number</label>
+                    <div className="text-white mt-2">
+                        <label htmlFor="minimumNumber" className="ml-2 text-xs">Select Minimun Number</label>
                         <input
                             type="number"
                             id="mouse-only-number-input"
@@ -212,13 +229,13 @@ export default function RandomString() {
                             value={minimumNumber}
                             style={{ width: 'auto' }}
                             disabled={!numberAllowed}
-                            className="ml-3 text-sm text-black h-6 p-2 rounded-md"
+                            className="text-xs text-white h-6 p-2 rounded-md"
                         />
-                        <label htmlFor="ramaningNumbe" className="ml-3 text-sm">Remaining length: {remainingLength}</label>
+                        <label htmlFor="ramaningNumbe" className="ml-2 text-xs text-green-400">Remaining length: {remainingLength}</label>
                     </div>
 
-                    <div className="text-white mt-3">
-                        <label htmlFor="minimumSpChar" className="ml-3 text-sm">Select Minimun Special Char</label>
+                    <div className="text-white mt-2">
+                        <label htmlFor="minimumSpChar" className="ml-2 text-xs">Select Minimun Special Char</label>
                         <input
                             type="number"
                             id="mouse-only-number-input"
@@ -228,9 +245,9 @@ export default function RandomString() {
                             value={minimumSpChar}
                             style={{ width: 'auto' }}
                             disabled={!specialCharAllowed}
-                            className="ml-3 text-sm text-black h-6 p-2 rounded-md"
+                            className="text-xs text-white h-6 p-2 rounded-md"
                         />
-                        <label htmlFor="ramaningLowerCase" className="ml-3 text-sm">Remaining length: {remainingLength}</label>
+                        <label htmlFor="ramaningLowerCase" className="ml-2 text-xs text-green-400">Remaining length: {remainingLength}</label>
                     </div>
                 </div>
             </div>
