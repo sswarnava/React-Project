@@ -45,7 +45,6 @@ export default function RandomString() {
         const combinedString = generetedString + generetedMinimumString
         // Convert the string to a list of characters
         const combinedList = combinedString.split('');
-        console.log(combinedList);
 
         // Shuffle the list
         combinedList.sort(() => Math.random());
@@ -61,47 +60,34 @@ export default function RandomString() {
 
 
     // Handle Minimun string count  
-    const handleUpperCaseChange = (e) => {
-        const newValue = parseInt(e.target.value, 10);
-        if (newValue <= stringLength) setMinimumUpper(newValue)
+    const handleUpperCaseChange = () => {
+        let stringCount = stringLength - minimumLower - minimumNumber - minimumSpChar
+        if (stringCount > minimumUpper && upperCaseAllowed === true) setMinimumUpper(minimumUpper + 1)
     };
 
-    const handleLowerCaseChange = (e) => {
-        const newValue = parseInt(e.target.value, 10);
-        if (newValue <= stringLength) setMinimumLower(newValue)
-        // setMinimumLower(remainingLength > newValue ? newValue : " ");
+    const handleLowerCaseChange = () => {
+        let stringCount = stringLength - minimumUpper - minimumNumber - minimumSpChar
+        if (stringCount > minimumLower && lowerCaseAllowed === true) setMinimumLower(minimumLower + 1)
     };
 
-    const handleNumberChange = (e) => {
-        const newValue = parseInt(e.target.value, 10);
-        if (newValue <= stringLength) setMinimumNumber(newValue)
-        // setMinimumNumber(remainingLength > newValue ? newValue : " ");
+    const handleNumberChange = () => {
+        let stringCount = stringLength - minimumUpper - minimumLower - minimumSpChar
+        if (stringCount > minimumNumber && numberAllowed === true) setMinimumNumber(minimumNumber + 1)
     };
 
-    const handleSpCharChange = (e) => {
-        const newValue = parseInt(e.target.value, 10);
-        if (newValue <= stringLength) setMinimumSpChar(newValue)
-        // setMinimumSpChar(remainingLength > newValue ? newValue : "");
+    const handleSpCharChange = () => {
+        let stringCount = stringLength - minimumUpper - minimumLower - minimumNumber
+        if (stringCount > minimumSpChar && specialCharAllowed === true) setMinimumSpChar(minimumSpChar + 1)
     };
+
+    useEffect(() => { setMinimumUpper(1), setMinimumLower(1), setMinimumNumber(0), setMinimumSpChar(0) }, [stringLength])
 
     useEffect(() => {
-        setMinimumUpper(1)
-        setMinimumLower(1)
-        setMinimumNumber(0)
-        setMinimumSpChar(0)
-
-    }, [stringLength])
-
-    useEffect(() => {
-        const mouseOnlyNumberInputField = document.getElementById("mouse-only-number-input");
-
-        const handleKeyPress = (event) => event.preventDefault();
-        mouseOnlyNumberInputField.addEventListener("keypress", handleKeyPress);
-
-        // Cleanup the event listener when the component unmounts
-        return () => mouseOnlyNumberInputField.removeEventListener("keypress", handleKeyPress);
-    }, []);
-
+        if (!upperCaseAllowed && !lowerCaseAllowed) {
+            if (numberAllowed) setNumberAllowed(false), setMinimumNumber(0)
+            if (specialCharAllowed) setSpecialCharAllowed(false), setMinimumSpChar(0)
+        }
+    }, [upperCaseAllowed, lowerCaseAllowed, numberAllowed, specialCharAllowed])
     // copy to clip-board
     const copyClipBoard = useCallback(() => {
         copyTextRef.current?.select()
@@ -138,7 +124,10 @@ export default function RandomString() {
                         type="checkbox"
                         id="upperCase"
                         defaultChecked={upperCaseAllowed}
-                        onChange={() => { setUpperCaseAllowed((prev) => !prev), setMinimumUpper(() => (!upperCaseAllowed && (remainingLength > 0)) ? 1 : 0) }}
+                        onChange={() => {
+                            setUpperCaseAllowed((prev) => !prev),
+                                setMinimumUpper(() => (!upperCaseAllowed && (remainingLength > 0)) ? 1 : 0)
+                        }}
                         className="ml-3"
                     />
                     <label htmlFor="chareater" className="ml-2">Upper Case</label>
@@ -148,7 +137,10 @@ export default function RandomString() {
                         type="checkbox"
                         id="lowerCase"
                         defaultChecked={lowerCaseAllowed}
-                        onChange={() => { setLowerCaseAllowed((prev) => !prev), setMinimumLower(() => (!lowerCaseAllowed && (remainingLength > 0)) ? 1 : 0) }}
+                        onChange={() => {
+                            setLowerCaseAllowed((prev) => !prev),
+                                setMinimumLower(() => (!lowerCaseAllowed && (remainingLength > 0)) ? 1 : 0)
+                        }}
                         className="ml-3"
                     />
                     <label htmlFor="chareater" className="ml-2">Lower Case</label>
@@ -157,8 +149,12 @@ export default function RandomString() {
                     <input
                         type="checkbox"
                         id="number"
+                        checked={numberAllowed}
                         disabled={(!upperCaseAllowed && !lowerCaseAllowed)}
-                        onChange={() => { setNumberAllowed((prev) => !prev), setMinimumNumber(() => (!numberAllowed && (remainingLength > 0)) ? 1 : 0) }}
+                        onChange={() => {
+                            setNumberAllowed((prev) => !prev),
+                                setMinimumNumber(() => (!numberAllowed && (remainingLength > 0)) ? 1 : 0)
+                        }}
                         className="ml-3"
                     />
                     <label htmlFor="number" className="ml-2">Number</label>
@@ -167,12 +163,17 @@ export default function RandomString() {
                     <input
                         type="checkbox"
                         id="specialCharacter"
+                        checked={specialCharAllowed}
                         disabled={(!upperCaseAllowed && !lowerCaseAllowed)}
-                        onChange={() => { setSpecialCharAllowed((prev) => !prev), setMinimumSpChar(() => (!specialCharAllowed && (remainingLength > 0)) ? 1 : 0) }}
+                        onChange={() => {
+                            setSpecialCharAllowed((prev) => !prev),
+                                setMinimumSpChar(() => (!specialCharAllowed && (remainingLength > 0)) ? 1 : 0)
+                        }}
                         className="ml-3"
                     />
                     <label htmlFor="character" className="ml-2">Special Character</label>
-                    <label htmlFor="" className="ml-2 text-xs text-green-500">(Editable special characters)</label>
+                    <br />
+                    <label htmlFor="" className="ml-2 text-xs text-green-500"> *Editable special characters</label>
                     <br />
                     <input
                         type="text"
@@ -183,70 +184,79 @@ export default function RandomString() {
                         className="mt-1 w-80 pl-2 border-2 border-blue-300 rounded-md text-white text-sm flex mx-auto"
                     />
 
-                    <div className="text-white mt-2">
-                        <label htmlFor="minimumUpperCase" className="ml-2 text-xs">Select Minimum Upper Case</label>
-                        <input
-                            type="number"
-                            id="mouse-only-number-input"
-                            onChange={handleUpperCaseChange}
-                            min={1}
-                            max={stringLength - minimumLower - minimumNumber - minimumSpChar}
-                            value={minimumUpper}
-                            disabled={!upperCaseAllowed}
-                            style={{ width: 'auto' }}
-                            className="text-xs text-white h-6 p-2 rounded-md"
-                        />
-                        {/* <label htmlFor="ramaningUpperCase" className="ml-2 text-xs text-green-400">Remaining length: {remainingLength}</label> */}
+                    <div className="text-white mt-4 flex">
+                        <label htmlFor="minimumUpperCase" className="mx-3 text-xs">Select Minimum Upper Case</label>
+                        <div className="flex">
+                            <button
+                                className={`w-8 rounded-md ${minimumUpper > 1 ? 'bg-red-500' : 'bg-gray-400'}`}
+                                onClick={() => setMinimumUpper(minimumUpper > 0 ? minimumUpper - 1 : 0)}
+                                disabled={minimumUpper === 1}
+                            >
+                                -
+                            </button>
+                            <p className="px-3">{minimumUpper}</p>
+                            <button
+                                className={`w-8 rounded-md ${(remainingLength !== 0 && upperCaseAllowed) ? 'bg-red-500' : 'bg-gray-400'}`}
+                                onClick={handleUpperCaseChange}
+                            >
+                                +
+                            </button>
+                        </div>
                     </div>
 
-                    <div className="text-white mt-2">
-                        <label htmlFor="minimumLowerCase" className="ml-2 text-xs">Select Minimum Lower Case</label>
-                        <input
-                            type="number"
-                            id="mouse-only-number-input"
-                            onChange={handleLowerCaseChange}
-                            min={1}
-                            max={stringLength - minimumUpper - minimumNumber - minimumSpChar}
-                            value={minimumLower}
-                            style={{ width: 'auto' }}
-                            disabled={!lowerCaseAllowed}
-                            className="text-xs text-white h-6 p-2 rounded-md"
-                        />
-                        {/* <label htmlFor="ramaningLowerCase" className=" text-xs text-green-400">Remaining length: {remainingLength}</label> */}
-
+                    <div className="text-white mt-2 flex">
+                        <label htmlFor="minimumLowerCase" className="mx-3 text-xs">Select Minimum Lower Case</label>
+                        <div className="flex">
+                            <button
+                                className={`w-8 rounded-md ${minimumLower > 1 ? 'bg-red-500' : 'bg-gray-400'}`}
+                                onClick={() => setMinimumLower(minimumLower > 0 ? minimumLower - 1 : 0)}
+                                disabled={minimumLower === 1}
+                            >
+                                -
+                            </button>
+                            <p className="px-3">{minimumLower}</p>
+                            <button
+                                className={`w-8 rounded-md ${(remainingLength !== 0 && lowerCaseAllowed) ? 'bg-red-500' : 'bg-gray-400'}`}
+                                onClick={handleLowerCaseChange}
+                            >
+                                +
+                            </button>
+                        </div>
                     </div>
 
-                    <div className="text-white mt-2">
-                        <label htmlFor="minimumNumber" className="ml-2 text-xs">Select Minimun Number</label>
-                        <input
-                            type="number"
-                            id="mouse-only-number-input"
-                            onChange={handleNumberChange}
-                            min={0}
-                            max={stringLength - minimumUpper - minimumLower - minimumSpChar}
-                            value={minimumNumber}
-                            style={{ width: 'auto' }}
-                            disabled={!numberAllowed}
-                            className="text-xs text-white h-6 p-2 rounded-md"
-                        />
-                        {/* <label htmlFor="ramaningNumbe" className="ml-2 text-xs text-green-400">Remaining length: {remainingLength}</label> */}
+                    <div className="text-white mt-2 flex">
+                        <label htmlFor="minimumNumber" className="mx-3 text-xs">Select Minimun Number</label>
+                        <div className="flex">
+                            <button
+                                className={`w-8 rounded-md ${(minimumNumber > 1 && numberAllowed) ? 'bg-red-500' : 'bg-gray-400'}`}
+                                onClick={() => setMinimumNumber(minimumNumber > 0 ? minimumNumber - 1 : 0)} disabled={minimumNumber === 1}>-</button>
+                            <p className="px-3">{minimumNumber}</p>
+                            <button
+                                className={`w-8 rounded-md ${(remainingLength !== 0 && numberAllowed) ? 'bg-red-500' : 'bg-gray-400'}`}
+                                onClick={handleNumberChange}>+</button>
+                        </div>
                     </div>
 
-                    <div className="text-white mt-2">
-                        <label htmlFor="minimumSpChar" className="ml-2 text-xs">Select Minimun Special Char</label>
-                        <input
-                            type="number"
-                            id="mouse-only-number-input"
-                            onChange={handleSpCharChange}
-                            min={0}
-                            max={stringLength - minimumUpper - minimumLower - minimumNumber}
-                            value={minimumSpChar}
-                            style={{ width: 'auto' }}
-                            disabled={!specialCharAllowed}
-                            className="text-xs text-white h-6 p-2 rounded-md"
-                        />
+                    <div className="text-white mt-2 flex">
+                        <label htmlFor="minimumSpChar" className="mx-3 text-xs">Select Minimun Special Char</label>
+                        <div className="flex">
+                            <button
+                                className={`w-8 rounded-md ${minimumSpChar > 1 ? 'bg-red-500' : 'bg-gray-400'}`}
+                                onClick={() => setMinimumSpChar(minimumSpChar > 0 ? minimumSpChar - 1 : 0)}
+                                disabled={minimumSpChar === 1}
+                            >
+                                -
+                            </button>
+                            <p className="px-3">{minimumSpChar}</p>
+                            <button
+                                className={`w-8 rounded-md ${(remainingLength !== 0 && specialCharAllowed) ? 'bg-red-500' : 'bg-gray-400'}`}
+                                onClick={handleSpCharChange}
+                            >
+                                +
+                            </button>
+                        </div>
                     </div>
-                    <label htmlFor="ramaningLowerCase" className="ml-2 text-xs text-green-400">Remaining length: {remainingLength}</label>
+                    <label htmlFor="ramaningLowerCase" className="ml-3 text-xs text-green-400">Remaining length: {remainingLength}</label>
                 </div>
             </div>
         </div >
