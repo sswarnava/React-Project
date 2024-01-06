@@ -110,27 +110,26 @@ export default function RandomString() {
 
     return (
         <div className='text-yellow-400 flex justify-center'>
-            <div className="border-white w-96 border-2 mx-5 py-4 rounded-md relative top-24 h-96">
-                <h1 className="text-center font-bold text-white text-2xl mb-3">Random Password Generator</h1>
+            <div className="border-white w-96 border-2 mx-5 py-5 rounded-md relative top-24 h-auto">
+                <h1 className="text-center font-bold text-white text-2xl mb-2">Random Password Generator</h1>
                 <div>
                     <input
                         type="text"
                         value={randomText}
                         ref={copyTextRef}
-                        className="w-80 text-sm h-6 text-white rounded-md px-1 ml-2"
+                        className="w-80 text-sm h-6 text-white px-1 border-2 border-white rounded-md flex mx-auto mb-3"
                     />
                     <button
-                        className="bg-blue-500 text-white ml-2 rounded-md p-1 text-xs font-semibold hover:cursor-pointer hover:bg-blue-700"
+                        className="w-72 bg-blue-500 text-white rounded-md p-1 text-xs font-semibold flex justify-center mx-auto mb-3 hover:cursor-pointer hover:bg-blue-700"
                         onClick={copyClipBoard}
                     >
                         COPY
                     </button>
-                    <br />
                     <input
                         type="range"
                         min={10} max={256} step={1}
                         onChange={(e) => { setStringLength(e.target.value) }}
-                        className="ml-2"
+                        className="ml-3"
                     />
                     <label htmlFor="length" className="ml-3 text-sm text-orange-500">String Length: ({stringLength})</label>
 
@@ -140,7 +139,7 @@ export default function RandomString() {
                         id="upperCase"
                         defaultChecked={upperCaseAllowed}
                         onChange={() => { setUpperCaseAllowed((prev) => !prev), setMinimumUpper(() => (!upperCaseAllowed && (remainingLength > 0)) ? 1 : 0) }}
-                        className="ml-2"
+                        className="ml-3"
                     />
                     <label htmlFor="chareater" className="ml-2">Upper Case</label>
 
@@ -150,7 +149,7 @@ export default function RandomString() {
                         id="lowerCase"
                         defaultChecked={lowerCaseAllowed}
                         onChange={() => { setLowerCaseAllowed((prev) => !prev), setMinimumLower(() => (!lowerCaseAllowed && (remainingLength > 0)) ? 1 : 0) }}
-                        className="ml-2"
+                        className="ml-3"
                     />
                     <label htmlFor="chareater" className="ml-2">Lower Case</label>
 
@@ -160,7 +159,7 @@ export default function RandomString() {
                         id="number"
                         disabled={(!upperCaseAllowed && !lowerCaseAllowed)}
                         onChange={() => { setNumberAllowed((prev) => !prev), setMinimumNumber(() => (!numberAllowed && (remainingLength > 0)) ? 1 : 0) }}
-                        className="ml-2"
+                        className="ml-3"
                     />
                     <label htmlFor="number" className="ml-2">Number</label>
 
@@ -170,7 +169,7 @@ export default function RandomString() {
                         id="specialCharacter"
                         disabled={(!upperCaseAllowed && !lowerCaseAllowed)}
                         onChange={() => { setSpecialCharAllowed((prev) => !prev), setMinimumSpChar(() => (!specialCharAllowed && (remainingLength > 0)) ? 1 : 0) }}
-                        className="ml-2"
+                        className="ml-3"
                     />
                     <label htmlFor="character" className="ml-2">Special Character</label>
                     <label htmlFor="" className="ml-2 text-xs text-green-500">(Editable special characters)</label>
@@ -181,10 +180,9 @@ export default function RandomString() {
                         name="myInput"
                         value={specialChar}
                         onChange={(event) => setSpecialChar(event.target.value)}
-                        className="ml-2 mt-1 w-80 pl-2 border-2 border-blue-300 rounded-md text-white text-sm"
+                        className="mt-1 w-80 pl-2 border-2 border-blue-300 rounded-md text-white text-sm flex mx-auto"
                     />
 
-                    <br />
                     <div className="text-white mt-2">
                         <label htmlFor="minimumUpperCase" className="ml-2 text-xs">Select Minimum Upper Case</label>
                         <input
@@ -198,7 +196,7 @@ export default function RandomString() {
                             style={{ width: 'auto' }}
                             className="text-xs text-white h-6 p-2 rounded-md"
                         />
-                        <label htmlFor="ramaningUpperCase" className="ml-2 text-xs text-green-400">Remaining length: {remainingLength}</label>
+                        {/* <label htmlFor="ramaningUpperCase" className="ml-2 text-xs text-green-400">Remaining length: {remainingLength}</label> */}
                     </div>
 
                     <div className="text-white mt-2">
@@ -214,7 +212,7 @@ export default function RandomString() {
                             disabled={!lowerCaseAllowed}
                             className="text-xs text-white h-6 p-2 rounded-md"
                         />
-                        <label htmlFor="ramaningLowerCase" className=" text-xs text-green-400">Remaining length: {remainingLength}</label>
+                        {/* <label htmlFor="ramaningLowerCase" className=" text-xs text-green-400">Remaining length: {remainingLength}</label> */}
 
                     </div>
 
@@ -231,7 +229,7 @@ export default function RandomString() {
                             disabled={!numberAllowed}
                             className="text-xs text-white h-6 p-2 rounded-md"
                         />
-                        <label htmlFor="ramaningNumbe" className="ml-2 text-xs text-green-400">Remaining length: {remainingLength}</label>
+                        {/* <label htmlFor="ramaningNumbe" className="ml-2 text-xs text-green-400">Remaining length: {remainingLength}</label> */}
                     </div>
 
                     <div className="text-white mt-2">
@@ -247,8 +245,8 @@ export default function RandomString() {
                             disabled={!specialCharAllowed}
                             className="text-xs text-white h-6 p-2 rounded-md"
                         />
-                        <label htmlFor="ramaningLowerCase" className="ml-2 text-xs text-green-400">Remaining length: {remainingLength}</label>
                     </div>
+                    <label htmlFor="ramaningLowerCase" className="ml-2 text-xs text-green-400">Remaining length: {remainingLength}</label>
                 </div>
             </div>
         </div >
