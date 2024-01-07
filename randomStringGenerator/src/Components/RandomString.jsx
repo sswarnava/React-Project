@@ -80,7 +80,19 @@ export default function RandomString() {
         if (stringCount > minimumSpChar && specialCharAllowed === true) setMinimumSpChar(minimumSpChar + 1)
     };
 
-    useEffect(() => { setMinimumUpper(1), setMinimumLower(1), setMinimumNumber(0), setMinimumSpChar(0) }, [stringLength])
+    useEffect(() => {
+        if (upperCaseAllowed) setMinimumUpper(1)
+        else setMinimumUpper(0)
+
+        if (lowerCaseAllowed) setMinimumLower(1)
+        else setMinimumLower(0)
+
+        if (numberAllowed) setMinimumNumber(1)
+        else setMinimumNumber(0)
+
+        if (specialCharAllowed) setMinimumSpChar(1)
+        else setMinimumSpChar(0)
+    }, [stringLength])
 
     useEffect(() => {
         if (!upperCaseAllowed && !lowerCaseAllowed) {
@@ -113,7 +125,8 @@ export default function RandomString() {
                     </button>
                     <input
                         type="range"
-                        min={10} max={256} step={1}
+                        min={10} max={256}
+                        value={stringLength}
                         onChange={(e) => { setStringLength(e.target.value) }}
                         className="ml-3"
                     />
@@ -128,7 +141,7 @@ export default function RandomString() {
                             setUpperCaseAllowed((prev) => !prev),
                                 setMinimumUpper(() => (!upperCaseAllowed && (remainingLength > 0)) ? 1 : 0)
                         }}
-                        className="ml-3"
+                        className="ml-3 mt-4"
                     />
                     <label htmlFor="chareater" className="ml-2">Upper Case</label>
 
@@ -141,7 +154,7 @@ export default function RandomString() {
                             setLowerCaseAllowed((prev) => !prev),
                                 setMinimumLower(() => (!lowerCaseAllowed && (remainingLength > 0)) ? 1 : 0)
                         }}
-                        className="ml-3"
+                        className="ml-3 mt-3"
                     />
                     <label htmlFor="chareater" className="ml-2">Lower Case</label>
 
@@ -155,7 +168,7 @@ export default function RandomString() {
                             setNumberAllowed((prev) => !prev),
                                 setMinimumNumber(() => (!numberAllowed && (remainingLength > 0)) ? 1 : 0)
                         }}
-                        className="ml-3"
+                        className="ml-3 mt-3"
                     />
                     <label htmlFor="number" className="ml-2">Number</label>
 
@@ -169,7 +182,7 @@ export default function RandomString() {
                             setSpecialCharAllowed((prev) => !prev),
                                 setMinimumSpChar(() => (!specialCharAllowed && (remainingLength > 0)) ? 1 : 0)
                         }}
-                        className="ml-3"
+                        className="ml-3 mt-3"
                     />
                     <label htmlFor="character" className="ml-2">Special Character</label>
                     <br />
@@ -184,7 +197,7 @@ export default function RandomString() {
                         className="mt-1 w-80 pl-2 border-2 border-blue-300 rounded-md text-white text-sm flex mx-auto"
                     />
 
-                    <div className="text-white mt-4 flex">
+                    <div className="text-white mt-5 flex">
                         <label htmlFor="minimumUpperCase" className="mx-3 text-xs">Select Minimum Upper Case</label>
                         <div className="flex">
                             <button
@@ -204,7 +217,7 @@ export default function RandomString() {
                         </div>
                     </div>
 
-                    <div className="text-white mt-2 flex">
+                    <div className="text-white mt-4 flex">
                         <label htmlFor="minimumLowerCase" className="mx-3 text-xs">Select Minimum Lower Case</label>
                         <div className="flex">
                             <button
@@ -224,7 +237,7 @@ export default function RandomString() {
                         </div>
                     </div>
 
-                    <div className="text-white mt-2 flex">
+                    <div className="text-white mt-4 flex">
                         <label htmlFor="minimumNumber" className="mx-3 text-xs">Select Minimun Number</label>
                         <div className="flex">
                             <button
@@ -237,7 +250,7 @@ export default function RandomString() {
                         </div>
                     </div>
 
-                    <div className="text-white mt-2 flex">
+                    <div className="text-white mt-4 flex">
                         <label htmlFor="minimumSpChar" className="mx-3 text-xs">Select Minimun Special Char</label>
                         <div className="flex">
                             <button
@@ -256,6 +269,7 @@ export default function RandomString() {
                             </button>
                         </div>
                     </div>
+
                     <label htmlFor="ramaningLowerCase" className="ml-3 text-xs text-green-400">Remaining length: {remainingLength}</label>
                 </div>
             </div>
