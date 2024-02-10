@@ -29,11 +29,8 @@ export default function Card() {
         <div>
             <div className="w-full p-5">
                 <div className="w-full max-w-md mx-auto border border-gray-60 rounded-lg p-5 bg-slate-100 shadow-xl">
-                    <form
-                        onSubmit={(e) => {
-                            e.preventDefault();
-                            convert()
-                        }}>
+                    <form onSubmit={(e) => { e.preventDefault(); convert()}}>
+
                         {/* First Input Box*/}
                         <div className="w-full mb-1">
                             <InputBox
