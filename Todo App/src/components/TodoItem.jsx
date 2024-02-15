@@ -14,6 +14,7 @@ function TodoItem({ todo }) {
         updateTodo(todo.id, { ...todo, todo: todoMsg })
         setIsTodoEditable(false)
     }
+
     const toggleCompleted = () => {
         toggleComplete(todo.id)
     }
@@ -23,12 +24,15 @@ function TodoItem({ todo }) {
             className={`flex border border-black/10 rounded-lg px-3 py-1.5 gap-x-3 shadow-sm shadow-white/50 duration-300  text-black ${todo.completed ? "bg-[#abee71]" : "bg-[#cec43f]"
                 }`}
         >
+            {/* Completed Checkbox */}
             <input
                 type="checkbox"
                 className="cursor-pointer mt-2 w-4 h-4 mr-2"
                 checked={todo.completed}
                 onChange={toggleCompleted}
             />
+
+            {/* Todo Value */}
             <input
                 type="text"
                 className={`border outline-none w-full bg-transparent text-lg font-medium font-mono ${isTodoEditable ? "border-black/10 px-2" : "border-transparent"
