@@ -1,5 +1,4 @@
 import { createSlice, nanoid } from '@reduxjs/toolkit'
-import { flushSync } from 'react-dom'
 
 const initialState = {
     todos: []
@@ -13,7 +12,6 @@ export const todoSlice = createSlice({
             const todo = {
                 id: nanoid(),
                 text: action.payload,
-                editable: false
             }
             state.todos.push(todo)
         },
@@ -23,13 +21,13 @@ export const todoSlice = createSlice({
         },
 
         updateTodo: (state, action) => {
-            const { id, editable } = action.payload;
-            const todoToUpdate = state.todos.find((todo) => todo.id === id);
-            console.log(todoToUpdate);
-            if (todoToUpdate) {
-                todoToUpdate.editable = editable;
-            }
+            const { id, editable, todomsg } = action.payload;
+            const updatedTodos = state.todos.map((todo) =>
+                todo.id === id ? { ...todo, text: todomsg } : todo
+            );
+            state.todos = updatedTodos;
         },
+        
     }
 })
 
