@@ -2,6 +2,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { removeTodo, updateTodo, todoCompleted } from '../features/todo/todoSlice';
 import { useState } from 'react';
 
+import { FaRegPenToSquare, FaFolderOpen } from "react-icons/fa6";
+import { ImBin } from "react-icons/im";
+
+
 function Todos() {
   const todos = useSelector(state => state.todos);
 
@@ -27,23 +31,23 @@ function Todos() {
 
   return (
     <>
-      <ul className="list-none">
+      <ul className="list-none text-center content-center">
         {todos.map((todo) => (
           <li
-            className="mt-4 w-1/2 flex justify-between items-center bg-zinc-800 px-4 py-2 rounded"
+            className="mt-4 w-10/12 mx-auto flex justify-between items-center bg-zinc-800 px-4 py-2 rounded text-center"
             key={todo.id}
           >
             {/* Completed Checkbox */}
             <input
               type="checkbox"
-              className="cursor-pointer mt-2 w-4 h-4 mr-2"
+              className="cursor-pointer w-4 h-4 mr-2"
               checked={todo.completed}
               onChange={() => dispatch(todoCompleted(todo.id))}
             />
 
             <input
               type="text"
-              className={`w-full bg-transparent text-lg font-medium font-mono text-white ${todo.completed ? "line-through" : ""
+              className={`w-full bg-transparent text-base font-medium font-mono text-white pl-2 ${todo.completed ? "line-through" : ""
                 } ${!editableIds.includes(todo.id)
                   ? "border border-transparent "
                   : "border border-gray-300"
@@ -55,19 +59,19 @@ function Todos() {
 
             <button
               onClick={() => dispatch(removeTodo(todo.id))}
-              className="text-white bg-red-500 border-0 py-1 px-4 focus:outline-none hover:bg-red-600 rounded text-md"
+              className="text-white bg-red-500 border-0 py-1 px-2 focus:outline-none hover:bg-red-600 rounded text-md"
             >
-              Delete
+              <ImBin className='bg-transparent mb-1' />
             </button>
 
             <button
-              onClick={() =>{
-                if(todo.completed == true) return;
+              onClick={() => {
+                if (todo.completed == true) return;
                 handleUpdate(todo.id)
               }}
-              className="text-white bg-blue-500 border-0 py-1 px-4 focus:outline-none hover:bg-blue-600 rounded text-md ml-2"
+              className="text-white bg-blue-500 border-0 py-1 px-2 focus:outline-none hover:bg-blue-600 rounded text-md ml-2"
             >
-              {editableIds.includes(todo.id) ? 'Save' : 'Edit'}
+              {editableIds.includes(todo.id) ? <FaFolderOpen className='bg-transparent mb-1' /> : <FaRegPenToSquare className='bg-transparent mb-1' />}
             </button>
 
           </li>
