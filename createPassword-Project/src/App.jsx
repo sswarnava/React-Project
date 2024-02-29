@@ -35,7 +35,7 @@ export default function App() {
   // call the random password
   useEffect(() => {
     passwordGenerator()
-  }, [passwordLenght, numberAllowed, charAllowed, setPassword])
+  }, [passwordLenght, numberAllowed, charAllowed, setPassword, passwordGenerator])
 
 
   return (
