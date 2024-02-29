@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { removeTodo, updateTodo } from '../features/todo/todoSlice';
+import { removeTodo, updateTodo, todoCompleted } from '../features/todo/todoSlice';
 import { useState } from 'react';
 
 function Todos() {
@@ -30,12 +30,20 @@ function Todos() {
       <ul className="list-none">
         {todos.map((todo) => (
           <li
-            className="mt-4 flex justify-between items-center bg-zinc-800 px-4 py-2 rounded"
+            className="mt-4 w-1/2 flex justify-between items-center bg-zinc-800 px-4 py-2 rounded"
             key={todo.id}
           >
+            {/* Completed Checkbox */}
+            <input
+              type="checkbox"
+              className="cursor-pointer mt-2 w-4 h-4 mr-2"
+              checked={todo.completed}
+              onChange={() => dispatch(todoCompleted(todo.id))}
+            />
+
             <input
               type="text"
-              className={`w-full bg-transparent text-lg font-medium font-mono text-white pointer-events-none ${todo.completed ? "line-through" : ""
+              className={`w-full bg-transparent text-lg font-medium font-mono text-white ${todo.completed ? "line-through" : ""
                 } ${!editableIds.includes(todo.id)
                   ? "border border-transparent "
                   : "border border-gray-300"
@@ -53,7 +61,10 @@ function Todos() {
             </button>
 
             <button
-              onClick={() => handleUpdate(todo.id)}
+              onClick={() =>{
+                if(todo.completed == true) return;
+                handleUpdate(todo.id)
+              }}
               className="text-white bg-blue-500 border-0 py-1 px-4 focus:outline-none hover:bg-blue-600 rounded text-md ml-2"
             >
               {editableIds.includes(todo.id) ? 'Save' : 'Edit'}
